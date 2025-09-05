@@ -1,49 +1,10 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
-import {
-  client,
-  useConfig,
-  useElementData,
-  useElementColumns,
-  useVariables
-} from "@sigmacomputing/plugin";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { useVariables } from "@sigmacomputing/plugin";
 
-client.config.configureEditorPanel([
-  {
-    // configuring selection of data source
-    name: "source",
-    type: "element",
-  },
-  {
-    // configuring selection of data column from the source that contains qualitative values
-    // (e.g. names, dates)
-    name: "dimension",
-    type: "column",
-    source: "source",
-    allowMultiple: false,
-  },
-  {
-    // configuring selection of data column(s) from the source that contain quantitative, numeric values
-    name: "measures",
-    type: "column",
-    source: "source",
-    allowMultiple: true,
-  },
-]);
-
-function ExcelUploader() {
+function App() {   // <-- cambia ExcelUploader in App
   const [status, setStatus] = useState("");
-  const controlValue = useVariables("myControl"); // es: "template_1"
+  const controlValue = useVariables("myControl"); 
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -62,7 +23,7 @@ function ExcelUploader() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             tableName: `dev_lab.sigma_csv_to_upload.${controlValue}`,
-            rows: jsonData
+            rows: jsonData,
           }),
         });
 
@@ -87,4 +48,4 @@ function ExcelUploader() {
   );
 }
 
-export default ExcelUploader;
+export default App;
