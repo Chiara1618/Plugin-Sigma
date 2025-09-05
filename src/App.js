@@ -5,6 +5,7 @@ import {
   useConfig,
   useElementData,
   useElementColumns,
+  useVariables
 } from "@sigmacomputing/plugin";
 import {
   ResponsiveContainer,
@@ -42,7 +43,7 @@ client.config.configureEditorPanel([
 
 function ExcelUploader() {
   const [status, setStatus] = useState("");
-  const controlValue = useControlValue("myControl"); // es: "template_1"
+  const controlValue = useVariables("myControl"); // es: "template_1"
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
