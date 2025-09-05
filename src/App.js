@@ -1,6 +1,44 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
-import { client, useControlValue } from "@sigmacomputing/plugin";
+import {
+  client,
+  useConfig,
+  useElementData,
+  useElementColumns,
+} from "@sigmacomputing/plugin";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+
+client.config.configureEditorPanel([
+  {
+    // configuring selection of data source
+    name: "source",
+    type: "element",
+  },
+  {
+    // configuring selection of data column from the source that contains qualitative values
+    // (e.g. names, dates)
+    name: "dimension",
+    type: "column",
+    source: "source",
+    allowMultiple: false,
+  },
+  {
+    // configuring selection of data column(s) from the source that contain quantitative, numeric values
+    name: "measures",
+    type: "column",
+    source: "source",
+    allowMultiple: true,
+  },
+]);
 
 function ExcelUploader() {
   const [status, setStatus] = useState("");
